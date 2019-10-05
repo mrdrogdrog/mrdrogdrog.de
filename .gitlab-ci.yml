@@ -1,14 +1,9 @@
-image: alpine:latest
-
-pages:
-  stage: deploy
+docker:
+  stage: build
+  before_script: []
+  image: 
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
-  - mkdir public
-  - mv *.html public/
-  - mv *.png public/
-  - mv party public/
-  artifacts:
-    paths:
-    - public/
-  only:
-  - master
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:latest
