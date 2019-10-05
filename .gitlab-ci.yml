@@ -1,0 +1,14 @@
+image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+  - mkdir public
+  - mv *.html public/
+  - mv *.png public/
+  - mv party public/
+  artifacts:
+    paths:
+    - public/
+  only:
+  - master
