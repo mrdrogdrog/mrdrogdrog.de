@@ -1,6 +1,8 @@
 docker:
   stage: build
-  only: master
+  only:
+    refs:
+      - master
   before_script: []
   image: 
     name: gcr.io/kaniko-project/executor:debug
